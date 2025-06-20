@@ -1,0 +1,105 @@
+<li class="nav-item"><a class="nav-link" href="get_involved.html">Get Involved</a></li> 
+
+<script>
+// Add the locations array for Ontario at the top of the script
+const locations = [
+    { name: "Jake's House", address: "200 Consumers Rd, North York, ON", lat: 43.775, lng: -79.34 },
+    { name: "Autism Ontario", address: "1179 King St W, Toronto, ON", lat: 43.637, lng: -79.424 },
+    { name: "Shining Through Centre", address: "7365 Martin Grove Rd, Woodbridge, ON", lat: 43.773, lng: -79.595 },
+    { name: "Geneva Centre for Autism", address: "112 Merton St, Toronto, ON", lat: 43.698, lng: -79.391 },
+    { name: "AUTISM COUNSELING & TREATMENT", address: "104 Rankin Rd, Sault Ste. Marie, ON P6A 4R8", lat: 46.52448, lng: -84.26370 },
+    { name: "AUTISM COUNSELING & TREATMENT", address: "633225 Hwy 10, Mono, ON L0N 1L0", lat: 43.9397850, lng: -80.1022345 },
+    { name: "AUTISM INFORMATION & REFERRAL SVC", address: "3820 Doane Rd, East Gwillimbury (Mount Albert), ON L0G 1V0", lat: 44.137353, lng: -79.370807 },
+    { name: "AUTISM COUNSELING & TREATMENT", address: "316 Rideau River Place, Waterloo, ON N2V 2Y5", lat: 43.491888, lng: -80.591336 },
+    { name: "AUTISM INFORMATION & REFERRAL SVC", address: "30 East Glen Dr, Arkona, ON N0M 1B0", lat: 43.071717, lng: -81.823838 },
+    { name: "AUTISM INFORMATION & REFERRAL SVC", address: "Unit 1, 8000 Bathurst St, Thornhill, ON L4J 0B8", lat: 43.813538, lng: -79.451799 },
+    { name: "AUTISM COUNSELING & TREATMENT", address: "56 Bronte St S, Milton, ON L9T 1Y8", lat: 43.5072346, lng: -79.8867978 },
+    { name: "AUTISM COUNSELING & TREATMENT", address: "Suite 103, 1405 North Service Rd E, Oakville, ON L6H 1A7", lat: 43.48415, lng: -79.67388 },
+    { name: "AUTISM COUNSELING & TREATMENT", address: "6219 Abbott St W, Stittsville, ON K2S 0B4", lat: 45.25651, lng: -75.924472 }
+];
+
+let waitingForProvince = false;
+
+// Replace the chatbot send button logic
+const sendBtn = document.getElementById('sendBtn');
+sendBtn.onclick = function() {
+    const userInput = document.getElementById('userInput').value.trim();
+    if (!userInput) return;
+    addMessage(userInput, 'user-message');
+    document.getElementById('userInput').value = '';
+    showTypingIndicator();
+    setTimeout(() => {
+        removeTypingIndicator();
+        handleChatbotLogic(userInput);
+    }, 700);
+};
+
+function handleChatbotLogic(userInput) {
+    const lowerInput = userInput.toLowerCase();
+    if (waitingForProvince) {
+        if (lowerInput === 'ontario') {
+            window.open('autism_specialists_map.html', '_blank');
+            let response = '<strong>Here are some autism specialists in Ontario:</strong><br><br>' +
+                locations.map(loc =>
+                    `<strong>${loc.name}</strong><br>${loc.address}<br><a href="https://www.google.com/maps/search/?api=1&query=${loc.lat},${loc.lng}" target="_blank">View on Map</a>`
+                ).join('<br><br>');
+            addMessage(response, 'bot-message');
+        } else {
+            addMessage("Sorry, we currently only have data for Ontario. Please enter 'Ontario' to see available specialists.", 'bot-message');
+        }
+        waitingForProvince = false;
+        return;
+    }
+    if (lowerInput.includes('specialist')) {
+        addMessage('Which province are you interested in?', 'bot-message');
+        waitingForProvince = true;
+        return;
+    }
+    // fallback to original bot logic if not specialist flow
+    addMessage("I'm here to help! Ask me about autism specialists in your province.", 'bot-message');
+}
+
+function addMessage(message, className) {
+    const chatBody = document.getElementById('chatBody');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = className;
+    messageDiv.innerHTML = message;
+    chatBody.appendChild(messageDiv);
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function showTypingIndicator() {
+    const chatBody = document.getElementById('chatBody');
+    const indicator = document.createElement('div');
+    indicator.className = 'typing-indicator';
+    indicator.innerHTML = `
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+    `;
+    chatBody.appendChild(indicator);
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function removeTypingIndicator() {
+    const indicator = document.querySelector('.typing-indicator');
+    if (indicator) {
+        indicator.remove();
+    }
+}
+
+// Update the toggleChatbot function to clear chat when closing
+window.toggleChatbot = function() {
+    const chatbot = document.getElementById('chatbot-container');
+    const chatBody = document.getElementById('chatBody');
+    if (chatbot.style.display === 'none' || chatbot.classList.contains('d-none')) {
+        chatbot.style.display = 'flex';
+        chatbot.classList.remove('d-none');
+    } else {
+        chatbot.style.display = 'none';
+        chatbot.classList.add('d-none');
+        // Clear chat history
+        chatBody.innerHTML = '';
+    }
+}
+</script> 

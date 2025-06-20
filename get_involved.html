@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get Involved - The Autism Network Canada</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: #e6f3ff;
+      color: #1a2a3a;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      background-color: #ffffff;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      border-radius: 15px;
+      margin: 1rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .logo-image img {
+      width: 120px;
+      height: auto;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .logo-text {
+      display: flex;
+      gap: 0.8rem;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #1a2a3a;
+      letter-spacing: 0.8px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 0.8rem 2rem;
+      border-radius: 25px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: all 0.2s;
+      text-decoration: none;
+      color: #1a2a3a;
+      background-color: #e0eaf5;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    .btn-specialist {
+      background-color: #2c5364;
+      color: white;
+    }
+
+    .btn-lang {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.5rem;
+    }
+
+    .lang-option {
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .lang-option:hover {
+      opacity: 0.7;
+    }
+
+    .lang-option.active {
+      font-weight: 600;
+    }
+
+    .main-content {
+      text-align: center;
+      padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .title {
+      font-size: clamp(2rem, 5vw, 4rem);
+      margin-bottom: clamp(1rem, 3vw, 2rem);
+      color: #2c5364;
+      font-weight: 700;
+    }
+
+    .description {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: #3f729b;
+      margin: 2rem auto;
+      max-width: min(800px, 90vw);
+      line-height: 1.6;
+    }
+
+    .event-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .event-list li {
+      background: #eaf4fb;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      border-radius: 6px;
+      text-align: left;
+    }
+
+    .event-list h3 {
+      margin: 0 0 0.5rem 0;
+      color: #357ab7;
+    }
+
+    .event-list p {
+      margin: 0.2rem 0;
+    }
+
+    #volunteer {
+      margin-top: 2.5rem;
+      background: #f5f5f5;
+      padding: 1rem;
+      border-radius: 6px;
+    }
+
+    a {
+      color: #357ab7;
+    }
+
+    /* Responsive navbar */
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem;
+        margin: 0.5rem;
+      }
+
+      .nav-top {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .logo {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .logo-text {
+        font-size: clamp(1.2rem, 3vw, 1.6rem);
+        text-align: center;
+        justify-content: center;
+      }
+
+      .nav-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .btn {
+        padding: 0.6rem 1.5rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-top">
+      <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+          <div class="logo-image">
+            <img src="https://raw.githubusercontent.com/DaisyYuan810/Hackie/main/The%20Logo.jpeg" alt="The Autism Network Canada Logo">
+          </div>
+          <div class="logo-text">The Autism Network Canada</div>
+        </a>
+      </div>
+      <div class="nav-buttons">
+        <a href="index.html" class="btn">Back to Home</a>
+        <a href="autism_specialists_map.html" class="btn btn-specialist">Find Specialist</a>
+        <a href="get_involved.html" class="btn btn-primary">Get Involved</a>
+        <button class="btn btn-lang">
+          <span class="lang-option active" onclick="setLanguage('en')">EN</span>
+          <span>/</span>
+          <span class="lang-option" onclick="setLanguage('fr')">FR</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <h1 class="title">Get Involved</h1>
+    <p class="description">Find upcoming autism-related events, workshops, and ways to participate!</p>
+
+    <section id="events">
+      <h2>Upcoming Events</h2>
+      <ul class="event-list">
+        <li>
+          <h3>Autism Awareness Walk</h3>
+          <p><strong>Date:</strong> April 15, 2024</p>
+          <p><strong>Location:</strong> Toronto City Park</p>
+          <p>Join us for a community walk to raise awareness and support for autism.</p>
+        </li>
+        <li>
+          <h3>Parent & Caregiver Workshop</h3>
+          <p><strong>Date:</strong> May 10, 2024</p>
+          <p><strong>Location:</strong> Online (Zoom)</p>
+          <p>Learn strategies and resources for supporting children with autism at home and in school.</p>
+        </li>
+        <li>
+          <h3>Inclusive Art Day</h3>
+          <p><strong>Date:</strong> June 2, 2024</p>
+          <p><strong>Location:</strong> Community Arts Centre</p>
+          <p>A creative day for children and teens on the spectrum to express themselves through art.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="volunteer">
+      <h2>Volunteer Opportunities</h2>
+      <p>Want to help? Contact us at <a href="mailto:volunteer@autismnetwork.ca">volunteer@autismnetwork.ca</a> to get involved, or check back for upcoming volunteer events!</p>
+    </section>
+  </main>
+</body>
+</html> 
