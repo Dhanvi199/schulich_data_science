@@ -1,105 +1,993 @@
-<li class="nav-item"><a class="nav-link" href="get_involved.html">Get Involved</a></li> 
-
-<script>
-// Add the locations array for Ontario at the top of the script
-const locations = [
-    { name: "Jake's House", address: "200 Consumers Rd, North York, ON", lat: 43.775, lng: -79.34 },
-    { name: "Autism Ontario", address: "1179 King St W, Toronto, ON", lat: 43.637, lng: -79.424 },
-    { name: "Shining Through Centre", address: "7365 Martin Grove Rd, Woodbridge, ON", lat: 43.773, lng: -79.595 },
-    { name: "Geneva Centre for Autism", address: "112 Merton St, Toronto, ON", lat: 43.698, lng: -79.391 },
-    { name: "AUTISM COUNSELING & TREATMENT", address: "104 Rankin Rd, Sault Ste. Marie, ON P6A 4R8", lat: 46.52448, lng: -84.26370 },
-    { name: "AUTISM COUNSELING & TREATMENT", address: "633225 Hwy 10, Mono, ON L0N 1L0", lat: 43.9397850, lng: -80.1022345 },
-    { name: "AUTISM INFORMATION & REFERRAL SVC", address: "3820 Doane Rd, East Gwillimbury (Mount Albert), ON L0G 1V0", lat: 44.137353, lng: -79.370807 },
-    { name: "AUTISM COUNSELING & TREATMENT", address: "316 Rideau River Place, Waterloo, ON N2V 2Y5", lat: 43.491888, lng: -80.591336 },
-    { name: "AUTISM INFORMATION & REFERRAL SVC", address: "30 East Glen Dr, Arkona, ON N0M 1B0", lat: 43.071717, lng: -81.823838 },
-    { name: "AUTISM INFORMATION & REFERRAL SVC", address: "Unit 1, 8000 Bathurst St, Thornhill, ON L4J 0B8", lat: 43.813538, lng: -79.451799 },
-    { name: "AUTISM COUNSELING & TREATMENT", address: "56 Bronte St S, Milton, ON L9T 1Y8", lat: 43.5072346, lng: -79.8867978 },
-    { name: "AUTISM COUNSELING & TREATMENT", address: "Suite 103, 1405 North Service Rd E, Oakville, ON L6H 1A7", lat: 43.48415, lng: -79.67388 },
-    { name: "AUTISM COUNSELING & TREATMENT", address: "6219 Abbott St W, Stittsville, ON K2S 0B4", lat: 45.25651, lng: -75.924472 }
-];
-
-let waitingForProvince = false;
-
-// Replace the chatbot send button logic
-const sendBtn = document.getElementById('sendBtn');
-sendBtn.onclick = function() {
-    const userInput = document.getElementById('userInput').value.trim();
-    if (!userInput) return;
-    addMessage(userInput, 'user-message');
-    document.getElementById('userInput').value = '';
-    showTypingIndicator();
-    setTimeout(() => {
-        removeTypingIndicator();
-        handleChatbotLogic(userInput);
-    }, 700);
-};
-
-function handleChatbotLogic(userInput) {
-    const lowerInput = userInput.toLowerCase();
-    if (waitingForProvince) {
-        if (lowerInput === 'ontario') {
-            window.open('autism_specialists_map.html', '_blank');
-            let response = '<strong>Here are some autism specialists in Ontario:</strong><br><br>' +
-                locations.map(loc =>
-                    `<strong>${loc.name}</strong><br>${loc.address}<br><a href="https://www.google.com/maps/search/?api=1&query=${loc.lat},${loc.lng}" target="_blank">View on Map</a>`
-                ).join('<br><br>');
-            addMessage(response, 'bot-message');
-        } else {
-            addMessage("Sorry, we currently only have data for Ontario. Please enter 'Ontario' to see available specialists.", 'bot-message');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Autism Network Canada</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #e6f3ff;  /* Light pale blue */
+            color: #1a2a3a;  /* Dark blue-gray text */
+            min-height: 100vh;
         }
-        waitingForProvince = false;
-        return;
-    }
-    if (lowerInput.includes('specialist')) {
-        addMessage('Which province are you interested in?', 'bot-message');
-        waitingForProvince = true;
-        return;
-    }
-    // fallback to original bot logic if not specialist flow
-    addMessage("I'm here to help! Ask me about autism specialists in your province.", 'bot-message');
-}
 
-function addMessage(message, className) {
-    const chatBody = document.getElementById('chatBody');
-    const messageDiv = document.createElement('div');
-    messageDiv.className = className;
-    messageDiv.innerHTML = message;
-    chatBody.appendChild(messageDiv);
-    chatBody.scrollTop = chatBody.scrollHeight;
-}
+        .navbar {
+            background-color: #ffffff;  /* White background */
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            border-radius: 15px;
+            margin: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 95vw;  /* Make navbar width responsive */
+            max-width: 1400px;
+            margin: 1rem auto;
+        }
 
-function showTypingIndicator() {
-    const chatBody = document.getElementById('chatBody');
-    const indicator = document.createElement('div');
-    indicator.className = 'typing-indicator';
-    indicator.innerHTML = `
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-    `;
-    chatBody.appendChild(indicator);
-    chatBody.scrollTop = chatBody.scrollHeight;
-}
+        .nav-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            width: 100%;
+        }
 
-function removeTypingIndicator() {
-    const indicator = document.querySelector('.typing-indicator');
-    if (indicator) {
-        indicator.remove();
-    }
-}
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;  /* Reduced from 2rem */
+        }
 
-// Update the toggleChatbot function to clear chat when closing
-window.toggleChatbot = function() {
-    const chatbot = document.getElementById('chatbot-container');
-    const chatBody = document.getElementById('chatBody');
-    if (chatbot.style.display === 'none' || chatbot.classList.contains('d-none')) {
-        chatbot.style.display = 'flex';
-        chatbot.classList.remove('d-none');
-    } else {
-        chatbot.style.display = 'none';
-        chatbot.classList.add('d-none');
-        // Clear chat history
-        chatBody.innerHTML = '';
-    }
-}
-</script> 
+        .logo-image {
+            width: clamp(60px, 8vw, 100px);  /* Adjusted size range */
+            height: auto;
+        }
+
+        .logo-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            display: flex;
+            gap: 0.5rem;  /* Reduced from 0.8rem */
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);  /* Adjusted font size */
+            font-weight: 600;
+            color: #1a2a3a;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-text span:first-child {
+            font-weight: 400;
+            font-size: clamp(1rem, 2vw, 1.4rem);  /* Adjusted proportion */
+            color: #1a2a3a;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-bottom {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: clamp(1rem, 4vw, 4rem);
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a {
+            color: #1a2a3a;  /* Dark blue-gray text */
+            text-decoration: none;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 500;
+            transition: opacity 0.2s;
+            padding: 0.5rem 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .btn {
+            padding: 0.8rem clamp(1rem, 2vw, 2rem);
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            transition: all 0.2s;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-specialist {
+            background-color: #2c5364;
+            color: white;
+        }
+
+        .btn-donate, .btn-lang {
+            background-color: #e0eaf5;  /* Light blue-gray */
+            color: #1a2a3a;
+        }
+
+        .main-content {
+            text-align: center;
+            padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 3vw, 2rem);
+        }
+
+        .title {
+            font-size: clamp(2rem, 6vw, 4rem);
+            margin-bottom: 1rem;
+            color: #2c5364;  /* Dark blue */
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: 2rem;
+            color: #34617a;  /* Slightly lighter dark blue */
+            font-weight: 600;
+        }
+
+        .description {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            max-width: min(800px, 90vw);
+            margin: 0 auto 3rem auto;
+            color: #3f729b;  /* Medium dark blue */
+            line-height: 1.6;
+        }
+
+        .stats-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: clamp(1rem, 3vw, 2rem);
+            margin-top: 3rem;
+        }
+
+        .stat-box {
+            background-color: #2c5364;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            border-radius: 15px;
+            width: clamp(280px, 90vw, 320px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+            background-color: #34617a;  /* Even slightly darker on hover */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-icon {
+            color: white;  /* White icon */
+            opacity: 0.9;  /* Slightly transparent */
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .stat-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ffffff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-value {
+            font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            line-height: 1.3;
+            color: white;  /* Ensuring the value is visible */
+        }
+
+        .stat-description {
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.95);
+            margin-top: 1rem;
+            padding: 0 1.2rem;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        /* Chatbot Styles */
+        #chatbot-icon {
+            position: fixed;
+            bottom: 1.25rem;
+            right: 1.25rem;
+            width: 3.75rem;
+            height: 3.75rem;
+            background-color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        #chatbot-icon:hover {
+            transform: scale(1.1);
+        }
+
+        #chatbot-container {
+            position: fixed;
+            bottom: 5.5rem;
+            right: 1.25rem;
+            width: min(21.875rem, 90vw);
+            height: min(31.25rem, 80vh);
+            background-color: white;
+            border-radius: 0.938rem;
+            box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background-color: #203a43;
+            color: white;
+            padding: 0.938rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .chat-header button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .chat-body {
+            flex-grow: 1;
+            padding: 1.25rem;
+            overflow-y: auto;
+            background-color: #f5f5f5;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.938rem;
+            background-color: white;
+            border-top: 1px solid #eee;
+            align-items: center;
+        }
+
+        .chat-input input {
+            flex-grow: 1;
+            padding: 0.75rem 1.25rem;
+            border: 1px solid #e0eaf5;
+            border-radius: 1.563rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .chat-input input:focus {
+            border-color: #2c5364;
+            outline: none;
+        }
+
+        .chat-input button {
+            background-color: #2c5364;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .chat-input button:hover {
+            transform: scale(1.1);
+        }
+
+        .message {
+            margin: 0.625rem 0;
+            padding: 0.625rem 0.938rem;
+            border-radius: 0.938rem;
+            max-width: 80%;
+        }
+
+        .user-message {
+            background-color: #203a43;
+            color: white;
+            margin-left: auto;
+        }
+
+        .bot-message {
+            background-color: white;
+            color: #203a43;
+            margin-right: auto;
+        }
+
+        .btn-lang {
+            display: flex;
+            gap: 4px;
+            padding: 0.8rem 1.2rem;
+            background-color: #e0eaf5;
+        }
+
+        .lang-option {
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lang-option.active {
+            background-color: #2c5364;
+            color: white;
+        }
+
+        /* Enhanced media queries for better responsiveness */
+        @media (max-width: 768px) {
+            .nav-top {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+            }
+
+            .nav-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .stats-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .nav-buttons {
+                gap: 0.5rem;
+            }
+
+            .btn {
+                padding: 0.6rem 1rem;
+            }
+        }
+
+        /* Chatbot responsive styles */
+        #chatbot-container {
+            width: min(21.875rem, 90vw);
+            height: min(31.25rem, 80vh);
+            right: clamp(10px, 3vw, 20px);
+            bottom: clamp(70px, 10vh, 90px);
+        }
+
+        #chatbot-icon {
+            width: 3.75rem;
+            height: 3.75rem;
+            right: clamp(10px, 3vw, 20px);
+            bottom: clamp(10px, 3vw, 20px);
+        }
+
+        /* Add Bootstrap container class override */
+        .container-fluid {
+            padding: 0;
+        }
+
+        /* Update existing chatbot styles */
+        .chat-body {
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        .quick-prompts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.938rem;
+            padding: 0.625rem 0;
+        }
+
+        .prompt-btn {
+            background-color: #e0eaf5;
+            color: #2c5364;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 1.25rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .prompt-btn:hover {
+            background-color: #2c5364;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .bot-message, .user-message {
+            padding: 12px 16px;
+            margin: 8px 0;
+            border-radius: 15px;
+            max-width: 85%;
+            line-height: 1.4;
+        }
+
+        .bot-message {
+            background-color: #ffffff;
+            color: #2c5364;
+            border-top-left-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .user-message {
+            background-color: #2c5364;
+            color: white;
+            border-top-right-radius: 5px;
+            margin-left: auto;
+        }
+
+        .chat-input {
+            padding: 15px;
+            background-color: #ffffff;
+            border-top: 1px solid #eee;
+        }
+
+        .chat-input input {
+            padding: 12px 20px;
+            border: 1px solid #e0eaf5;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .chat-input input:focus {
+            border-color: #2c5364;
+            outline: none;
+        }
+
+        .chat-input button {
+            background-color: #2c5364;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .chat-input button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Add suggested topics section */
+        .suggested-topics {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .suggested-topics h4 {
+            color: #2c5364;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .topic-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .topic-tag {
+            background-color: #f0f4f8;
+            color: #2c5364;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .topic-tag:hover {
+            background-color: #e0eaf5;
+        }
+
+        /* Add typing indicator */
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 12px 16px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            width: fit-content;
+            margin: 8px 0;
+        }
+
+        .typing-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            background-color: #2c5364;
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: typingAnimation 1s infinite;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingAnimation {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* Update the send button styles */
+        #sendBtn {
+            min-width: 2.5rem;
+            height: 2.5rem;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bot-message a {
+            color: #2c5364;
+            text-decoration: none;
+            border-bottom: 1px solid #2c5364;
+        }
+
+        .bot-message a:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-top">
+            <div class="logo">
+                <div class="logo-image">
+                    <img src="https://raw.githubusercontent.com/DaisyYuan810/Hackie/main/The%20Logo.jpeg" alt="The Autism Network Canada Logo">
+                </div>
+                <div class="logo-text">
+                    <span>The</span>
+                    <span>Autism</span>
+                    <span>Network</span>
+                    <span>Canada</span>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <a href="autism_specialists_map.html" class="btn btn-specialist">Find Specialist</a>
+                <a href="donate.html" class="btn btn-donate">Donate</a>
+                <button class="btn btn-lang">
+                    <span class="lang-option active" onclick="setLanguage('en')">EN</span>
+                    <span>/</span>
+                    <span class="lang-option" onclick="setLanguage('fr')">FR</span>
+                </button>
+            </div>
+        </div>
+        <div class="nav-bottom">
+            <div class="nav-links">
+                <a href="#about">About Autism</a>
+                <a href="#support">Support</a>
+                <a href="#involved">Get Involved</a>
+                <a href="autism_hub.html">Autism Hub</a>
+                <a href="#about-us">About Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <h1 class="title">AUTISM CARE</h1>
+        <h2 class="subtitle">Connect Beyond Barriers</h2>
+        <p class="description">
+            We empower adolescent girls with autism through inclusive support, resources, and community.
+        </p>
+
+        <div class="stats-container">
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="stat-box">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-value">1 in 165</div>
+                    <p class="stat-description">
+                        Girls aged 5–17 in Canada are diagnosed with autism, compared to 1 in 42 boys, highlighting underdiagnosis in females.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="stat-box">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-value">$1.2M - $4.7M</div>
+                    <p class="stat-description">
+                        The estimated lifetime cost of supporting an individual with ASD in Canada, depending on severity and disability levels.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="stat-box">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-value">Higher Camouflaging in Females</div>
+                    <p class="stat-description">
+                        Autistic women often mask their traits, leading to increased mental health struggles, making diagnosis and support more challenging.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Chatbot Icon -->
+    <div id="chatbot-icon" onclick="toggleChatbot()">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#203a43" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 5V3a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"/>
+        </svg>
+    </div>
+
+    <!-- Chatbot Container -->
+    <div id="chatbot-container" style="display: none;">
+        <div class="chat-header">
+            <span>Autism Support Assistant</span>
+            <button onclick="toggleChatbot()">❌</button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <!-- Add welcome message and quick prompts -->
+            <div class="bot-message">
+                Hello! I'm here to help you learn more about autism and find resources. What would you like to know about?
+            </div>
+            <div class="quick-prompts">
+                <button class="prompt-btn" onclick="sendQuickPrompt('Autism symptoms')">Autism Symptoms</button>
+                <button class="prompt-btn" onclick="sendQuickPrompt('Find specialists')">Find Specialists</button>
+                <button class="prompt-btn" onclick="sendQuickPrompt('Support services')">Support Services</button>
+                <button class="prompt-btn" onclick="sendQuickPrompt('Resources for parents')">Parent Resources</button>
+                <button class="prompt-btn" onclick="sendQuickPrompt('Educational support')">Educational Support</button>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="userInput" placeholder="Type your question here...">
+            <button id="sendBtn" title="Send message">➤</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Chatbot toggle function
+            window.toggleChatbot = function() {
+                const chatbot = document.getElementById('chatbot-container');
+                chatbot.style.display = chatbot.style.display === 'none' ? 'flex' : 'none';
+            }
+
+            // Send quick prompt function
+            window.sendQuickPrompt = function(prompt) {
+                const userInput = document.getElementById('userInput');
+                userInput.value = prompt;
+                document.getElementById('sendBtn').click();
+            }
+
+            // Add message function
+            function addMessage(message, className) {
+                const chatBody = document.getElementById('chatBody');
+                const messageDiv = document.createElement('div');
+                messageDiv.className = className;
+                messageDiv.innerHTML = message;
+                chatBody.appendChild(messageDiv);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }
+
+            // Update the getBotResponse function
+            function getBotResponse(message) {
+                const lowerMessage = message.toLowerCase();
+                
+                // External resource links - Updated with NGO and government sources
+                const externalResources = {
+                    'research': {
+                        'Government of Canada Autism Research': 'https://www.canada.ca/en/public-health/services/diseases/autism-spectrum-disorder/research.html',
+                        'Canadian Autism Spectrum Disorder Alliance': 'https://www.casda.ca/resources/',
+                        'Autism Ontario Research': 'https://www.autismontario.com/research'
+                    },
+                    'support groups': {
+                        'Autism Canada Support Network': 'https://autismcanada.org/living-with-autism/treatments/support-groups/',
+                        'Autism Ontario Support Services': 'https://www.autismontario.com/programs-services',
+                        'Pacific Autism Family Network': 'https://pacificautismfamily.com/family-services/'
+                    },
+                    'financial assistance': {
+                        'Child Disability Benefit': 'https://www.canada.ca/en/revenue-agency/services/child-family-benefits/child-disability-benefit.html',
+                        'Registered Disability Savings Plan': 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/registered-disability-savings-plan-rdsp.html',
+                        'Disability Tax Credit': 'https://www.canada.ca/en/revenue-agency/services/tax/individuals/segments/tax-credits-deductions-persons-disabilities/disability-tax-credit.html'
+                    }
+                };
+
+                // Format links as HTML
+                function formatLinks(resources) {
+                    return Object.entries(resources)
+                        .map(([name, url]) => `• <a href="${url}" target="_blank">${name}</a>`)
+                        .join('<br>');
+                }
+
+                // Check for research-related queries
+                if (lowerMessage.includes('research') || lowerMessage.includes('study') || lowerMessage.includes('studies')) {
+                    const response = document.createElement('div');
+                    response.innerHTML = `Here are some reliable autism research resources:<br><br>` +
+                        formatLinks(externalResources.research) +
+                        `<br><br>Would you like to know about specific research areas?`;
+                    return response.outerHTML;
+                }
+
+                // Check for support group queries
+                if (lowerMessage.includes('support group') || lowerMessage.includes('community') || lowerMessage.includes('connect')) {
+                    const response = document.createElement('div');
+                    response.innerHTML = `I found these support groups that might help:<br><br>` +
+                        formatLinks(externalResources['support groups']) +
+                        `<br><br>Would you like to know more about any specific group?`;
+                    return response.outerHTML;
+                }
+
+                // Check for financial assistance queries
+                if (lowerMessage.includes('financial') || lowerMessage.includes('funding') || lowerMessage.includes('money') || 
+                    lowerMessage.includes('cost') || lowerMessage.includes('benefit') || lowerMessage.includes('tax')) {
+                    const response = document.createElement('div');
+                    response.innerHTML = `Here are official financial assistance resources:<br><br>` +
+                        formatLinks(externalResources['financial assistance']) +
+                        `<br><br>Would you like specific information about any of these programs?`;
+                    return response.outerHTML;
+                }
+
+                // Original responses and city checking code remains the same
+                const canadianCities = {
+                    'toronto': { lat: 43.6532, lng: -79.3832 },
+                    'vancouver': { lat: 49.2827, lng: -123.1207 },
+                    'montreal': { lat: 45.5017, lng: -73.5673 },
+                    'ottawa': { lat: 45.4215, lng: -75.6972 },
+                    'calgary': { lat: 51.0447, lng: -114.0719 },
+                    'edmonton': { lat: 53.5461, lng: -113.4938 },
+                    'winnipeg': { lat: 49.8951, lng: -97.1384 }
+                };
+
+                const cityName = Object.keys(canadianCities).find(city => lowerMessage.includes(city));
+
+                if (cityName) {
+                    const coords = canadianCities[cityName];
+                    
+                    // Direct link to the Find Specialist button's href
+                    const specialistLink = document.querySelector('.btn-specialist').getAttribute('href');
+                    const mapUrl = `${specialistLink}?city=${cityName}&lat=${coords.lat}&lng=${coords.lng}`;
+                    
+                    // Immediate redirection
+                    window.location.href = mapUrl;
+
+                    return `I found specialists in ${cityName.charAt(0).toUpperCase() + cityName.slice(1)}. Redirecting you to the map...`;
+                }
+
+                // Check for specialist-related queries
+                if (lowerMessage.includes('specialist') || 
+                    lowerMessage.includes('doctor') || 
+                    lowerMessage.includes('therapist') || 
+                    lowerMessage.includes('find')) {
+                    // List all Ontario specialists
+                    let response = '<strong>Here are some autism specialists in Ontario:</strong><br><br>' +
+                        locations.map(loc =>
+                            `<strong>${loc.name}</strong><br>${loc.address}<br><a href="https://www.google.com/maps/search/?api=1&query=${loc.lat},${loc.lng}" target="_blank">View on Map</a>`
+                        ).join('<br><br>');
+                    return response;
+                }
+
+                // Default responses
+                const responses = {
+                    'Autism symptoms': 'Common autism symptoms include: \n- Difficulty with social interaction\n- Repetitive behaviors\n- Delayed language development\n- Sensory sensitivities\nWould you like to learn more about any specific symptom?',
+                    'Find specialists': 'I can help you find autism specialists in your area. Please provide your city name (e.g., Toronto, Vancouver, Montreal).',
+                    'Support services': 'We offer various support services including:\n- Individual therapy\n- Group therapy\n- Family counseling\n- Educational support\nWhich service would you like to learn more about?',
+                    'Parent resources': 'Here are some resources for parents:\n- Parent support groups\n- Educational materials\n- Therapy guidance\n- Financial assistance information\nWhat specific information would you like?',
+                    'Educational support': 'We provide educational support through:\n- School advocacy\n- IEP assistance\n- Learning accommodations\n- Teacher training\nHow can we help with your educational needs?'
+                };
+
+                return responses[message] || 
+                       "I understand you're asking about " + message + 
+                       ". Would you like me to search external resources for more information? " +
+                       "You can ask about research, support groups, or financial assistance.";
+            }
+
+            // Show typing indicator function
+            function showTypingIndicator() {
+                const chatBody = document.getElementById('chatBody');
+                const indicator = document.createElement('div');
+                indicator.className = 'typing-indicator';
+                indicator.innerHTML = `
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                `;
+                chatBody.appendChild(indicator);
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }
+
+            // Remove typing indicator function
+            function removeTypingIndicator() {
+                const indicator = document.querySelector('.typing-indicator');
+                if (indicator) {
+                    indicator.remove();
+                }
+            }
+
+            // Add event listener for send button
+            document.getElementById('sendBtn').addEventListener('click', function() {
+                const userInput = document.getElementById('userInput');
+                const message = userInput.value.trim();
+                
+                if (message) {
+                    // Add user message
+                    addMessage(message, 'user-message');
+                    userInput.value = '';
+                    
+                    // Show typing indicator
+                    showTypingIndicator();
+                    
+                    // Simulate bot thinking with a delay
+                    setTimeout(() => {
+                        removeTypingIndicator();
+                        const response = getBotResponse(message);
+                        addMessage(response, 'bot-message');
+                    }, 1000);
+                }
+            });
+
+            // Add event listener for Enter key
+            document.getElementById('userInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('sendBtn').click();
+                }
+            });
+        });
+    </script>
+
+    <script>
+        const translations = {
+            en: {
+                title: "AUTISM CARE",
+                subtitle: "Connect Beyond Barriers",
+                description: "We empower adolescent girls with autism through inclusive support, resources, and community.",
+                findSpecialist: "Find Specialist",
+                donate: "Donate",
+                aboutAutism: "About Autism",
+                support: "Support",
+                getInvolved: "Get Involved",
+                autismHub: "Autism Hub",
+                aboutUs: "About Us",
+                stats: {
+                    stat1: "1 in 165",
+                    stat1Description: "Girls aged 5–17 in Canada are diagnosed with autism, compared to 1 in 42 boys, highlighting underdiagnosis in females.",
+                    stat2: "$1.2M - $4.7M",
+                    stat2Description: "The estimated lifetime cost of supporting an individual with ASD in Canada, depending on severity and disability levels.",
+                    stat3: "Higher Camouflaging in Females",
+                    stat3Description: "Autistic women often mask their traits, leading to increased mental health struggles, making diagnosis and support more challenging."
+                }
+            },
+            fr: {
+                title: "SOINS DE L'AUTISME",
+                subtitle: "Connecter Au-delà des Barrières",
+                description: "Nous accompagnons les adolescentes autistes grâce à un soutien inclusif, des ressources et une communauté.",
+                findSpecialist: "Trouver un Spécialiste",
+                donate: "Faire un Don",
+                aboutAutism: "À Propos de l'Autisme",
+                support: "Soutien",
+                getInvolved: "S'Impliquer",
+                autismHub: "Centre de l'Autisme",
+                aboutUs: "À Propos de Nous",
+                stats: {
+                    stat1: "1 sur 165",
+                    stat1Description: "Filles âgées de 5 à 17 ans au Canada sont diagnostiquées autistes, contre 1 sur 42 garçons, soulignant le sous-diagnostic chez les femmes.",
+                    stat2: "1,2M$ - 4,7M$",
+                    stat2Description: "Le coût estimé à vie pour soutenir une personne atteinte de TSA au Canada, selon la sévérité et les niveaux de handicap.",
+                    stat3: "Camouflage Plus Élevé chez les Femmes",
+                    stat3Description: "Les femmes autistes masquent souvent leurs traits, ce qui entraîne des difficultés accrues de santé mentale et rend le diagnostic et le soutien plus difficiles."
+                }
+            }
+        };
+
+        function setLanguage(lang) {
+            // Update active state of language buttons
+            document.querySelectorAll('.lang-option').forEach(el => {
+                el.classList.remove('active');
+                if (el.textContent.toLowerCase() === lang.toLowerCase()) {
+                    el.classList.add('active');
+                }
+            });
+
+            // Update text content
+            document.querySelector('.title').textContent = translations[lang].title;
+            document.querySelector('.subtitle').textContent = translations[lang].subtitle;
+            document.querySelector('.description').textContent = translations[lang].description;
+
+            // Update navigation
+            document.querySelector('.btn-specialist').textContent = translations[lang].findSpecialist;
+            document.querySelector('.btn-donate').textContent = translations[lang].donate;
+
+            // Update nav links
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks[0].textContent = translations[lang].aboutAutism;
+            navLinks[1].textContent = translations[lang].support;
+            navLinks[2].textContent = translations[lang].getInvolved;
+            navLinks[3].textContent = translations[lang].autismHub;
+            navLinks[4].textContent = translations[lang].aboutUs;
+
+            // Update statistics
+            const stats = document.querySelectorAll('.stat-box');
+            stats[0].querySelector('.stat-value').textContent = translations[lang].stats.stat1;
+            stats[0].querySelector('.stat-description').textContent = translations[lang].stats.stat1Description;
+            stats[1].querySelector('.stat-value').textContent = translations[lang].stats.stat2;
+            stats[1].querySelector('.stat-description').textContent = translations[lang].stats.stat2Description;
+            stats[2].querySelector('.stat-value').textContent = translations[lang].stats.stat3;
+            stats[2].querySelector('.stat-description').textContent = translations[lang].stats.stat3Description;
+        }
+
+        // Make setLanguage accessible globally
+        window.setLanguage = setLanguage;
+    </script>
+
+    <script>
+        const locations = [
+            { name: "Jake's House", address: "200 Consumers Rd, North York, ON", lat: 43.775, lng: -79.34 },
+            { name: "Autism Ontario", address: "1179 King St W, Toronto, ON", lat: 43.637, lng: -79.424 },
+            { name: "Shining Through Centre", address: "7365 Martin Grove Rd, Woodbridge, ON", lat: 43.773, lng: -79.595 },
+            { name: "Geneva Centre for Autism", address: "112 Merton St, Toronto, ON", lat: 43.698, lng: -79.391 },
+            { name: "AUTISM COUNSELING & TREATMENT", address: "104 Rankin Rd, Sault Ste. Marie, ON P6A 4R8", lat: 46.52448, lng: -84.26370 },
+            { name: "AUTISM COUNSELING & TREATMENT", address: "633225 Hwy 10, Mono, ON L0N 1L0", lat: 43.9397850, lng: -80.1022345 },
+            { name: "AUTISM INFORMATION & REFERRAL SVC", address: "3820 Doane Rd, East Gwillimbury (Mount Albert), ON L0G 1V0", lat: 44.137353, lng: -79.370807 },
+            { name: "AUTISM COUNSELING & TREATMENT", address: "316 Rideau River Place, Waterloo, ON N2V 2Y5", lat: 43.491888, lng: -80.591336 },
+            { name: "AUTISM INFORMATION & REFERRAL SVC", address: "30 East Glen Dr, Arkona, ON N0M 1B0", lat: 43.071717, lng: -81.823838 },
+            { name: "AUTISM INFORMATION & REFERRAL SVC", address: "Unit 1, 8000 Bathurst St, Thornhill, ON L4J 0B8", lat: 43.813538, lng: -79.451799 },
+            { name: "AUTISM COUNSELING & TREATMENT", address: "56 Bronte St S, Milton, ON L9T 1Y8", lat: 43.5072346, lng: -79.8867978 },
+            { name: "AUTISM COUNSELING & TREATMENT", address: "Suite 103, 1405 North Service Rd E, Oakville, ON L6H 1A7", lat: 43.48415, lng: -79.67388 },
+            { name: "AUTISM COUNSELING & TREATMENT", address: "6219 Abbott St W, Stittsville, ON K2S 0B4", lat: 45.25651, lng: -75.924472 }
+        ];
+    </script>
+</body>
+</html>

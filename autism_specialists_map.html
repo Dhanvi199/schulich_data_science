@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_79cf53dec20acd0c1c78a078b1a77452 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-search@2.9.7/dist/leaflet-search.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-search@2.9.7/dist/leaflet-search.min.css"/>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"/>
+    <style>
+    .leaflet-control-search {
+        min-width: 350px !important;  /* Increase width */
+        font-size: 1.2em !important;  /* Increase font size */
+    }
+    .leaflet-control-search input {
+        height: 2.5em !important;     /* Increase input height */
+        font-size: 1.1em !important;
+    }
+    </style>
+    <style>
+    #back-to-home {
+      position: fixed;
+      top: 20px;
+      right: 30px;
+      background: #357ab7;
+      color: #fff;
+      padding: 0.6em 1.2em;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      z-index: 1000;
+      box-shadow: 0 2px 8px #0002;
+      transition: background 0.2s;
+    }
+    #back-to-home:hover {
+      background: #23507c;
+    }
+    </style>
+</head>
+<body>
+    
+    <a href="index.html" id="back-to-home">← Back to Home</a>
+    
+    
+            <div class="folium-map" id="map_79cf53dec20acd0c1c78a078b1a77452" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_79cf53dec20acd0c1c78a078b1a77452 = L.map(
+                "map_79cf53dec20acd0c1c78a078b1a77452",
+                {
+                    center: [44.0, -79.5],
+                    zoom: 7,
+                    crs: L.CRS.EPSG3857,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_490563a77829679d8769b14849f8670a = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_490563a77829679d8769b14849f8670a.addTo(map_79cf53dec20acd0c1c78a078b1a77452);
+        
+    
+            var feature_group_b9551062df960604d9ba309b66db4f1b = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_dfce67c52f6780e30bb662ec26050f7c = L.marker(
+                [43.81074630000001, -79.5519443],
+                {
+}
+            ).addTo(feature_group_b9551062df960604d9ba309b66db4f1b);
+        
+    
+            var icon_cf9a11e4ad2fc6b82e4b73aad85e62eb = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_dfce67c52f6780e30bb662ec26050f7c.setIcon(icon_cf9a11e4ad2fc6b82e4b73aad85e62eb);
+        
+    
+        var popup_2bacd8e18b02f5d50f80231d5ee9ca20 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2f41ed5161b66442fd8af0d3632c932c = $(`<div id="html_2f41ed5161b66442fd8af0d3632c932c" style="width: 100.0%; height: 100.0%;">CARE Ltd - Centre for Autism Remediation & Education, ABA/IBI Behavior Therapy, ABA Family Training<br>8611 Weston Rd, Vaughan, ON L4L 9P1, Canada</div>`)[0];
+                popup_2bacd8e18b02f5d50f80231d5ee9ca20.setContent(html_2f41ed5161b66442fd8af0d3632c932c);
+            
+        
+
+        marker_dfce67c52f6780e30bb662ec26050f7c.bindPopup(popup_2bacd8e18b02f5d50f80231d5ee9ca20)
+        ;
+
+        
+    
+    
+            var marker_df3977e801850d948f3de01e3012475a = L.marker(
+                [43.7721242, -79.61176379999999],
+                {
+}
+            ).addTo(feature_group_b9551062df960604d9ba309b66db4f1b);
+        
+    
+            var icon_b30671fe292e34f6468213408e6d6d70 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_df3977e801850d948f3de01e3012475a.setIcon(icon_b30671fe292e34f6468213408e6d6d70);
+        
+    
+        var popup_dd62ba38e549f741da9a0364ca29cfad = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6a0b19c8377a4e5883cfc85be356b79b = $(`<div id="html_6a0b19c8377a4e5883cfc85be356b79b" style="width: 100.0%; height: 100.0%;">Autism Therapy & Training Inc.<br>111 Regina Rd, Woodbridge, ON L4L 8N5, Canada</div>`)[0];
+                popup_dd62ba38e549f741da9a0364ca29cfad.setContent(html_6a0b19c8377a4e5883cfc85be356b79b);
+            
+        
+
+        marker_df3977e801850d948f3de01e3012475a.bindPopup(popup_dd62ba38e549f741da9a0364ca29cfad)
+        ;
+
+        
+    
+    
+            var marker_ae2547ba1524e2f447d98ee3f33d74a6 = L.marker(
+                [43.7869742, -79.49745469999999],
+                {
+}
+            ).addTo(feature_group_b9551062df960604d9ba309b66db4f1b);
+        
+    
+            var icon_d99ea7057f2405eb6b9d237f93526479 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_ae2547ba1524e2f447d98ee3f33d74a6.setIcon(icon_d99ea7057f2405eb6b9d237f93526479);
+        
+    
+        var popup_450bde81da0d660d6faf4d77e3619f08 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2338174fe95bec18df267aed98572e71 = $(`<div id="html_2338174fe95bec18df267aed98572e71" style="width: 100.0%; height: 100.0%;">Maxi Mind Learning<br>7250 Keele St #423, Vaughan, ON L4K 1Z8, Canada</div>`)[0];
+                popup_450bde81da0d660d6faf4d77e3619f08.setContent(html_2338174fe95bec18df267aed98572e71);
+            
+        
+
+        marker_ae2547ba1524e2f447d98ee3f33d74a6.bindPopup(popup_450bde81da0d660d6faf4d77e3619f08)
+        ;
+
+        
+    
+    
+            var marker_d513bc70a515173e0bca6a4d33c2b38f = L.marker(
+                [43.83411299999999, -79.506768],
+                {
+}
+            ).addTo(feature_group_b9551062df960604d9ba309b66db4f1b);
+        
+    
+            var icon_143421ad4708765cafb2044ac3ff9ab1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_d513bc70a515173e0bca6a4d33c2b38f.setIcon(icon_143421ad4708765cafb2044ac3ff9ab1);
+        
+    
+        var popup_1482e70d4d21980fff501946d1ea4789 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f32190a0e81f608c12322883bedb56b2 = $(`<div id="html_f32190a0e81f608c12322883bedb56b2" style="width: 100.0%; height: 100.0%;">vaughan centre for autism<br>9131 Keele St a4, Vaughan, ON L4K 0G7, Canada</div>`)[0];
+                popup_1482e70d4d21980fff501946d1ea4789.setContent(html_f32190a0e81f608c12322883bedb56b2);
+            
+        
+
+        marker_d513bc70a515173e0bca6a4d33c2b38f.bindPopup(popup_1482e70d4d21980fff501946d1ea4789)
+        ;
+
+        
+    
+    
+            var marker_ce705da08e636f18028cb5d0680a2841 = L.marker(
+                [43.72498420000001, -79.3804767],
+                {
+}
+            ).addTo(feature_group_b9551062df960604d9ba309b66db4f1b);
+        
+    
+            var icon_d2788f68911a2eca546bd2df4769f47e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_ce705da08e636f18028cb5d0680a2841.setIcon(icon_d2788f68911a2eca546bd2df4769f47e);
+        
+    
+        var popup_d8b0b404bf8d414639a120cefbf11900 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_dff3e209a9e2691c0fc66eb64885f2d7 = $(`<div id="html_dff3e209a9e2691c0fc66eb64885f2d7" style="width: 100.0%; height: 100.0%;">TACT | The Autism Centre of Toronto<br>2180 Bayview Ave, North York, ON M4N 3K7, Canada</div>`)[0];
+                popup_d8b0b404bf8d414639a120cefbf11900.setContent(html_dff3e209a9e2691c0fc66eb64885f2d7);
+            
+        
+
+        marker_ce705da08e636f18028cb5d0680a2841.bindPopup(popup_d8b0b404bf8d414639a120cefbf11900)
+        ;
+
+        
+    
+    
+            var marker_8a3f932c7dad6fc2e0dde20f195e9be6 = L.marker(
+                [43.793368, -79.4629697],
+                {
+}
+            ).addTo(feature_group_b9551062df960604d9ba309b66db4f1b);
+        
+    
+            var icon_8e953f5813eedf17715e09b0e1c15d6a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_8a3f932c7dad6fc2e0dde20f195e9be6.setIcon(icon_8e953f5813eedf17715e09b0e1c15d6a);
+        
+    
+        var popup_28a99aae9ae61d03c7c9de5426cbac5d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1f78ca9119936d874a9d60089ea1c775 = $(`<div id="html_1f78ca9119936d874a9d60089ea1c775" style="width: 100.0%; height: 100.0%;">Side by Side Therapy<br>252 Charlton Ave, Thornhill, ON L4J 6H2, Canada</div>`)[0];
+                popup_28a99aae9ae61d03c7c9de5426cbac5d.setContent(html_1f78ca9119936d874a9d60089ea1c775);
+            
+        
+
+        marker_8a3f932c7dad6fc2e0dde20f195e9be6.bindPopup(popup_28a99aae9ae61d03c7c9de5426cbac5d)
+        ;
+
+        
+    
+    
+            var marker_8faa72012c36563547b65200fe16e48b = L.marker(
+                [43.8560063, -79.4175384],
+                {
+}
+            ).addTo(feature_group_b9551062df960604d9ba309b66db4f1b);
+        
+    
+            var icon_1bd3248357c519fd5c6065f813095b9e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_8faa72012c36563547b65200fe16e48b.setIcon(icon_1bd3248357c519fd5c6065f813095b9e);
+        
+    
+        var popup_70c9fe239a879eaa1c2e1f8d06f1abc7 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5c4ca602a0d15ae0728ea23d7bcfecc1 = $(`<div id="html_5c4ca602a0d15ae0728ea23d7bcfecc1" style="width: 100.0%; height: 100.0%;">Breakthrough Autism<br>519 16th Ave, Richmond Hill, ON L4C 7A7, Canada</div>`)[0];
+                popup_70c9fe239a879eaa1c2e1f8d06f1abc7.setContent(html_5c4ca602a0d15ae0728ea23d7bcfecc1);
+            
+        
+
+        marker_8faa72012c36563547b65200fe16e48b.bindPopup(popup_70c9fe239a879eaa1c2e1f8d06f1abc7)
+        ;
+
+        
+    
+    
+            var marker_df9c54f6c53c1e6dc82ee47a84f7b46b = L.marker(
+                [43.7553059, -79.4717658],
+                {
+}
+            ).addTo(feature_group_b9551062df960604d9ba309b66db4f1b);
+        
+    
+            var icon_aa6fb09440621f3a3d7d7b028b9f1f62 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_df9c54f6c53c1e6dc82ee47a84f7b46b.setIcon(icon_aa6fb09440621f3a3d7d7b028b9f1f62);
+        
+    
+        var popup_62db725c5184d93c645bfc81818aa44f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b74ac25fd14f76b75ac7fa97a0ce900f = $(`<div id="html_b74ac25fd14f76b75ac7fa97a0ce900f" style="width: 100.0%; height: 100.0%;">Toronto IBI Autism Services<br>1170 Sheppard Ave W #32, North York, ON M3K 2A3, Canada</div>`)[0];
+                popup_62db725c5184d93c645bfc81818aa44f.setContent(html_b74ac25fd14f76b75ac7fa97a0ce900f);
+            
+        
+
+        marker_df9c54f6c53c1e6dc82ee47a84f7b46b.bindPopup(popup_62db725c5184d93c645bfc81818aa44f)
+        ;
+
+        
+    
+    
+            var marker_be0490abb9a3e38c2e4a29b7e42815e3 = L.marker(
+                [43.6288397, -79.6754265],
+                {
+}
+            ).addTo(feature_group_b9551062df960604d9ba309b66db4f1b);
+        
+    
+            var icon_9f6c5fb65396ef73643f1f89fb0bb497 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_be0490abb9a3e38c2e4a29b7e42815e3.setIcon(icon_9f6c5fb65396ef73643f1f89fb0bb497);
+        
+    
+        var popup_38716580b123105bbf832a81cf279d8c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d4e06b21852a7cd31f56612c3b2b24d0 = $(`<div id="html_d4e06b21852a7cd31f56612c3b2b24d0" style="width: 100.0%; height: 100.0%;">Hope Autism Services<br>150 Britannia Rd E #9, Mississauga, ON L4Z 2A4, Canada</div>`)[0];
+                popup_38716580b123105bbf832a81cf279d8c.setContent(html_d4e06b21852a7cd31f56612c3b2b24d0);
+            
+        
+
+        marker_be0490abb9a3e38c2e4a29b7e42815e3.bindPopup(popup_38716580b123105bbf832a81cf279d8c)
+        ;
+
+        
+    
+    
+            var marker_e785ccfbab9c87542f98d213e3209bfc = L.marker(
+                [43.793375, -79.4629788],
+                {
+}
+            ).addTo(feature_group_b9551062df960604d9ba309b66db4f1b);
+        
+    
+            var icon_0ba4a0f04c57cf018a0e9a03b7ed8f40 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_e785ccfbab9c87542f98d213e3209bfc.setIcon(icon_0ba4a0f04c57cf018a0e9a03b7ed8f40);
+        
+    
+        var popup_6da1a2287d3b84deddf84cf3bb917786 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e68ce02f0a162433b78a0c28766c2acf = $(`<div id="html_e68ce02f0a162433b78a0c28766c2acf" style="width: 100.0%; height: 100.0%;">Lindsey Malc, BCBA - Autism, ABA and Behaviour Therapist/Analyst for ASD in Toronto<br>252 Charlton Ave, Vaughan, ON L4J 6H2, Canada</div>`)[0];
+                popup_6da1a2287d3b84deddf84cf3bb917786.setContent(html_e68ce02f0a162433b78a0c28766c2acf);
+            
+        
+
+        marker_e785ccfbab9c87542f98d213e3209bfc.bindPopup(popup_6da1a2287d3b84deddf84cf3bb917786)
+        ;
+
+        
+    
+    
+            var marker_5907144bb9dbc88f296d6f3c96027776 = L.marker(
+                [43.7795, -79.42670559999999],
+                {
+}
+            ).addTo(feature_group_b9551062df960604d9ba309b66db4f1b);
+        
+    
+            var icon_67fa126effd16635a7765a052605b5f7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_5907144bb9dbc88f296d6f3c96027776.setIcon(icon_67fa126effd16635a7765a052605b5f7);
+        
+    
+        var popup_0de4a8296f2dd513a56133d001f7900c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b70c9a434b2e6ab276f760250603d26c = $(`<div id="html_b70c9a434b2e6ab276f760250603d26c" style="width: 100.0%; height: 100.0%;">ATAMIC Clinic (North York)<br>32 Altamont Rd, North York, ON M2M 1S7, Canada</div>`)[0];
+                popup_0de4a8296f2dd513a56133d001f7900c.setContent(html_b70c9a434b2e6ab276f760250603d26c);
+            
+        
+
+        marker_5907144bb9dbc88f296d6f3c96027776.bindPopup(popup_0de4a8296f2dd513a56133d001f7900c)
+        ;
+
+        
+    
+    
+            var marker_d6b1d16243e8e68b20b3eb321c49393d = L.marker(
+                [43.7762635, -79.2466742],
+                {
+}
+            ).addTo(feature_group_b9551062df960604d9ba309b66db4f1b);
+        
+    
+            var icon_0af5c6ac25da96ea8da10b6a7e9757f4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_d6b1d16243e8e68b20b3eb321c49393d.setIcon(icon_0af5c6ac25da96ea8da10b6a7e9757f4);
+        
+    
+        var popup_310e06372e0f0885b0e5fbd888919f00 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d1cc8aaf118a7f2c1acbb626f17c13dc = $(`<div id="html_d1cc8aaf118a7f2c1acbb626f17c13dc" style="width: 100.0%; height: 100.0%;">SAAAC Autism Centre<br>705 Progress Ave #63, Scarborough, ON M1H 2X1, Canada</div>`)[0];
+                popup_310e06372e0f0885b0e5fbd888919f00.setContent(html_d1cc8aaf118a7f2c1acbb626f17c13dc);
+            
+        
+
+        marker_d6b1d16243e8e68b20b3eb321c49393d.bindPopup(popup_310e06372e0f0885b0e5fbd888919f00)
+        ;
+
+        
+    
+    
+            var marker_e33637acda8222e16e8f192c703a7d21 = L.marker(
+                [43.7987174, -79.5340868],
+                {
+}
+            ).addTo(feature_group_b9551062df960604d9ba309b66db4f1b);
+        
+    
+            var icon_18fbc0d5792364e08918c62ab7a7bf81 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_e33637acda8222e16e8f192c703a7d21.setIcon(icon_18fbc0d5792364e08918c62ab7a7bf81);
+        
+    
+        var popup_f9f01be92caea56d98352178a9189d15 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6db94c8241d4603cad17070bd156167f = $(`<div id="html_6db94c8241d4603cad17070bd156167f" style="width: 100.0%; height: 100.0%;">Waves of Changes for Autism<br>260 Edgeley Blvd Unit #32, Concord, ON L4K 3Y4, Canada</div>`)[0];
+                popup_f9f01be92caea56d98352178a9189d15.setContent(html_6db94c8241d4603cad17070bd156167f);
+            
+        
+
+        marker_e33637acda8222e16e8f192c703a7d21.bindPopup(popup_f9f01be92caea56d98352178a9189d15)
+        ;
+
+        
+    
+    
+            var marker_90c26bdb7d7f14a963fcb255234b1354 = L.marker(
+                [43.7508309, -79.73933029999999],
+                {
+}
+            ).addTo(feature_group_b9551062df960604d9ba309b66db4f1b);
+        
+    
+            var icon_801944a4cd3281d6e62237a071a747ba = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_90c26bdb7d7f14a963fcb255234b1354.setIcon(icon_801944a4cd3281d6e62237a071a747ba);
+        
+    
+        var popup_49d14d0b94abf9d1a89ea2093a59d29c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_205ed6994acf58b3b7e1a4b1bb9e342a = $(`<div id="html_205ed6994acf58b3b7e1a4b1bb9e342a" style="width: 100.0%; height: 100.0%;">Aim Pediatric Therapy ABA Therapy & Autism Specialists , Since 2011<br>2250 Bovaird Dr E Unit 215, Brampton, ON L6R 0W3, Canada</div>`)[0];
+                popup_49d14d0b94abf9d1a89ea2093a59d29c.setContent(html_205ed6994acf58b3b7e1a4b1bb9e342a);
+            
+        
+
+        marker_90c26bdb7d7f14a963fcb255234b1354.bindPopup(popup_49d14d0b94abf9d1a89ea2093a59d29c)
+        ;
+
+        
+    
+    
+            var marker_9391b2cb8a109facfba96f9928c55fb3 = L.marker(
+                [44.0060042, -79.6780124],
+                {
+}
+            ).addTo(feature_group_b9551062df960604d9ba309b66db4f1b);
+        
+    
+            var icon_2862f641d83355fc57dcadf63a4f8a77 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_9391b2cb8a109facfba96f9928c55fb3.setIcon(icon_2862f641d83355fc57dcadf63a4f8a77);
+        
+    
+        var popup_d675397a1c9547c0e9e183e54fa7574e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_09805f9b217b70664efd7c836992b04d = $(`<div id="html_09805f9b217b70664efd7c836992b04d" style="width: 100.0%; height: 100.0%;">Superminds Autism Therapy<br>50 Dr Kay Dr Unit C18, Schomberg, ON L0G 1T0, Canada</div>`)[0];
+                popup_d675397a1c9547c0e9e183e54fa7574e.setContent(html_09805f9b217b70664efd7c836992b04d);
+            
+        
+
+        marker_9391b2cb8a109facfba96f9928c55fb3.bindPopup(popup_d675397a1c9547c0e9e183e54fa7574e)
+        ;
+
+        
+    
+    
+            var marker_55c53774c215348e9244351400f0b936 = L.marker(
+                [43.6399602, -79.6315249],
+                {
+}
+            ).addTo(feature_group_b9551062df960604d9ba309b66db4f1b);
+        
+    
+            var icon_9113e7e20b49dcd95ff11e2226196a6a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_55c53774c215348e9244351400f0b936.setIcon(icon_9113e7e20b49dcd95ff11e2226196a6a);
+        
+    
+        var popup_d2e86bfdf7d40a40f1b1dc6118d55eb4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ea669dd02dd05ce8c577574d1dfc1e6b = $(`<div id="html_ea669dd02dd05ce8c577574d1dfc1e6b" style="width: 100.0%; height: 100.0%;">Together We Rise Autism Services For Treatment and Development<br>1351 Matheson Blvd E #24b, Mississauga, ON L4W 2A1, Canada</div>`)[0];
+                popup_d2e86bfdf7d40a40f1b1dc6118d55eb4.setContent(html_ea669dd02dd05ce8c577574d1dfc1e6b);
+            
+        
+
+        marker_55c53774c215348e9244351400f0b936.bindPopup(popup_d2e86bfdf7d40a40f1b1dc6118d55eb4)
+        ;
+
+        
+    
+    
+            var marker_a8997b61f0aa7d4e4d6ddb2b47cae405 = L.marker(
+                [43.860372, -79.3878809],
+                {
+}
+            ).addTo(feature_group_b9551062df960604d9ba309b66db4f1b);
+        
+    
+            var icon_e01f4e9c3646f6a2af499441511215a1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_a8997b61f0aa7d4e4d6ddb2b47cae405.setIcon(icon_e01f4e9c3646f6a2af499441511215a1);
+        
+    
+        var popup_c0247dda8af1d4f0a5bef4a5e48a1989 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_54519ce4bde2a186b75a3d5d378ea323 = $(`<div id="html_54519ce4bde2a186b75a3d5d378ea323" style="width: 100.0%; height: 100.0%;">Autism In Mind<br>121 Granton Dr Unit 12, Richmond Hill, ON L4B 3N4, Canada</div>`)[0];
+                popup_c0247dda8af1d4f0a5bef4a5e48a1989.setContent(html_54519ce4bde2a186b75a3d5d378ea323);
+            
+        
+
+        marker_a8997b61f0aa7d4e4d6ddb2b47cae405.bindPopup(popup_c0247dda8af1d4f0a5bef4a5e48a1989)
+        ;
+
+        
+    
+    
+            var marker_76146342a82549753d166a31059e8432 = L.marker(
+                [43.6974768, -79.39120919999999],
+                {
+}
+            ).addTo(feature_group_b9551062df960604d9ba309b66db4f1b);
+        
+    
+            var icon_b34c0884e66ce2e1836015d4553794e2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_76146342a82549753d166a31059e8432.setIcon(icon_b34c0884e66ce2e1836015d4553794e2);
+        
+    
+        var popup_d7335ce3b9e6f0d2588e64ac41f08b3d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e54af2331c95e150e5b64acd4e62c5f4 = $(`<div id="html_e54af2331c95e150e5b64acd4e62c5f4" style="width: 100.0%; height: 100.0%;">Geneva Centre for Autism<br>164 Merton St, Toronto, ON M4S 3A8, Canada</div>`)[0];
+                popup_d7335ce3b9e6f0d2588e64ac41f08b3d.setContent(html_e54af2331c95e150e5b64acd4e62c5f4);
+            
+        
+
+        marker_76146342a82549753d166a31059e8432.bindPopup(popup_d7335ce3b9e6f0d2588e64ac41f08b3d)
+        ;
+
+        
+    
+    
+            var marker_ddba1c7802a821d27c3dc598b067eae4 = L.marker(
+                [43.6429941, -79.6459647],
+                {
+}
+            ).addTo(feature_group_b9551062df960604d9ba309b66db4f1b);
+        
+    
+            var icon_32c86ccc5c1560a2b8a7426cc0d8fdeb = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_ddba1c7802a821d27c3dc598b067eae4.setIcon(icon_32c86ccc5c1560a2b8a7426cc0d8fdeb);
+        
+    
+        var popup_ed7e7d52e4fef1004f43885fc2289326 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_64a4f66812507d35e510f7a08ca69c43 = $(`<div id="html_64a4f66812507d35e510f7a08ca69c43" style="width: 100.0%; height: 100.0%;">Autism and Behavioral Services<br>5800 Ambler Dr #117, Mississauga, ON L4W 4J4, Canada</div>`)[0];
+                popup_ed7e7d52e4fef1004f43885fc2289326.setContent(html_64a4f66812507d35e510f7a08ca69c43);
+            
+        
+
+        marker_ddba1c7802a821d27c3dc598b067eae4.bindPopup(popup_ed7e7d52e4fef1004f43885fc2289326)
+        ;
+
+        
+    
+    
+            var marker_49fbf0ee0a716471b8e30eaaa507d9c1 = L.marker(
+                [43.7615573, -79.35961979999999],
+                {
+}
+            ).addTo(feature_group_b9551062df960604d9ba309b66db4f1b);
+        
+    
+            var icon_4f21729c66385a2df0901120fff08ccf = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+            marker_49fbf0ee0a716471b8e30eaaa507d9c1.setIcon(icon_4f21729c66385a2df0901120fff08ccf);
+        
+    
+        var popup_bc019d42fe7e6d528b42bb02d616ae40 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_771b4ad7e8a1f511657c62204b1df100 = $(`<div id="html_771b4ad7e8a1f511657c62204b1df100" style="width: 100.0%; height: 100.0%;">Kerry's Place Autism Services<br>222 Lesmill Rd, North York, ON M3B 2V1, Canada</div>`)[0];
+                popup_bc019d42fe7e6d528b42bb02d616ae40.setContent(html_771b4ad7e8a1f511657c62204b1df100);
+            
+        
+
+        marker_49fbf0ee0a716471b8e30eaaa507d9c1.bindPopup(popup_bc019d42fe7e6d528b42bb02d616ae40)
+        ;
+
+        
+    
+    
+            feature_group_b9551062df960604d9ba309b66db4f1b.addTo(map_79cf53dec20acd0c1c78a078b1a77452);
+        
+    
+            var feature_group_b9551062df960604d9ba309b66db4f1bsearchControl = new L.Control.Search({
+                layer: feature_group_b9551062df960604d9ba309b66db4f1b,
+                propertyName: 'name',
+                collapsed: false,
+                textPlaceholder: '🔍 Search for a specialist...',
+                position: 'topleft',
+                initial: false,
+                hideMarkerOnCollapse: true
+            });
+            feature_group_b9551062df960604d9ba309b66db4f1bsearchControl.on('search:locationfound', function(e) {
+                feature_group_b9551062df960604d9ba309b66db4f1b.setStyle(function(feature){
+                    return feature.properties.style
+                })
+                
+                if(e.layer._popup)
+                    e.layer.openPopup();
+            })
+            feature_group_b9551062df960604d9ba309b66db4f1bsearchControl.on('search:collapsed', function(e) {
+                    feature_group_b9551062df960604d9ba309b66db4f1b.setStyle(function(feature){
+                        return feature.properties.style
+                });
+            });
+            L.Control.geocoder(
+                geocoderOpts_geocoder_729c30fccf899b35750978205cd5bafc
+            ).on('markgeocode', function(e) {
+                var zoom = geocoderOpts_geocoder_729c30fccf899b35750978205cd5bafc['zoom'] || map_79cf53dec20acd0c1c78a078b1a77452.getZoom();
+                map_79cf53dec20acd0c1c78a078b1a77452.setView(e.geocode.center, zoom);
+            }).addTo(map_79cf53dec20acd0c1c78a078b1a77452);
+
+            map_79cf53dec20acd0c1c78a078b1a77452.addControl(feature_group_b9551062df960604d9ba309b66db4f1bsearchControl);
+
+        
+    
+
+            var geocoderOpts_geocoder_729c30fccf899b35750978205cd5bafc = {
+  "collapsed": false,
+  "position": "topleft",
+  "defaultMarkGeocode": true,
+  "zoom": 11,
+  "provider": "nominatim",
+  "providerOptions": {
+},
+  "placeholder": "\ud83d\udd0d Search for a location...",
+};
+
+            // note: geocoder name should start with lowercase
+            var geocoderName_geocoder_729c30fccf899b35750978205cd5bafc = geocoderOpts_geocoder_729c30fccf899b35750978205cd5bafc["provider"];
+
+            var customGeocoder_geocoder_729c30fccf899b35750978205cd5bafc = L.Control.Geocoder[ geocoderName_geocoder_729c30fccf899b35750978205cd5bafc ](
+                geocoderOpts_geocoder_729c30fccf899b35750978205cd5bafc['providerOptions']
+            );
+            geocoderOpts_geocoder_729c30fccf899b35750978205cd5bafc["geocoder"] = customGeocoder_geocoder_729c30fccf899b35750978205cd5bafc;
+
+        
+    
+            var layer_control_33e13501af695aadc35b32fcd651ea16_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_490563a77829679d8769b14849f8670a,
+                },
+                overlays :  {
+                    "Specialists" : feature_group_b9551062df960604d9ba309b66db4f1b,
+                },
+            };
+            let layer_control_33e13501af695aadc35b32fcd651ea16 = L.control.layers(
+                layer_control_33e13501af695aadc35b32fcd651ea16_layers.base_layers,
+                layer_control_33e13501af695aadc35b32fcd651ea16_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_79cf53dec20acd0c1c78a078b1a77452);
+
+        
+</script>
+</html>
